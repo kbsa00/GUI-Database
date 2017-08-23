@@ -72,7 +72,7 @@ public class Database extends GUI {
         try {
 
             Connection mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
-                    "root", "1234");
+                    "", "");
 
             Statement mystmt = mycon.createStatement();
 
