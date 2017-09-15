@@ -72,7 +72,6 @@ public class Database extends GUI {
                 infolist.add(department);
                 infolist.add(salary);
             }
-
             PrintDatabase(infolist);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Something went wrong. Can't the information you are looking for in the Database.");
@@ -95,15 +94,8 @@ public class Database extends GUI {
         try {
 
             ConnectToDB();
+
              myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
-
-            Connection mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
-                    "", "");
-
-            Statement mystmt = mycon.createStatement();
-
-
-            ResultSet myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
                     fname + " and " + "last_name = " + lname + " and " + " id = " + id);
 
             int count = 0;
