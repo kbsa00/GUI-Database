@@ -94,8 +94,18 @@ public class Database extends GUI {
 
         try {
 
+<<<<<<< HEAD
             ConnectToDB();
              myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
+=======
+            Connection mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
+                    "", "");
+
+            Statement mystmt = mycon.createStatement();
+
+
+            ResultSet myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
+>>>>>>> c4b2445eb8e97c1a26a2dcac4ea3da3ccec07250
                     fname + " and " + "last_name = " + lname + " and " + " id = " + id);
 
             int count = 0;
