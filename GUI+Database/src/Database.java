@@ -19,6 +19,10 @@ public class Database extends GUI {
     private Statement mystmt;
     private ResultSet myrs;
 
+
+    /**
+     * A method that connects to the Database.
+     */
     public void ConnectToDB(){
         try{
              mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
@@ -32,7 +36,9 @@ public class Database extends GUI {
 
 
     }
-
+    /**
+     * A method that ends connection to the Database.
+     */
     public void EndConnectionDB(){
 
         try{
