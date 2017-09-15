@@ -15,7 +15,34 @@ import java.util.ArrayList;
 
 public class Database extends GUI {
     private ArrayList<String> infolist = new ArrayList<>();
+    private Connection mycon;
+    private Statement mystmt;
+    private ResultSet myrs;
 
+    public void ConnectToDB(){
+        try{
+             mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
+                    "root", "1234");
+             mystmt = mycon.createStatement();
+
+
+        }catch (Exception ex){
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+
+
+    }
+
+    public void EndConnectionDB(){
+
+        try{
+            mycon.close();
+            mystmt.close();
+
+        }catch (Exception ex){
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+    }
     /**
      * This method runs a SQL-Query where the methods intent is to search up
      * specific information to the Database. It will also give a confirmation
@@ -26,12 +53,9 @@ public class Database extends GUI {
 
 
         try {
-            Connection mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
-                    "root", "1234");
-
-            Statement mystmt = mycon.createStatement();
-            ResultSet myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
-                    fname + " and " + "last_name = " + lname + " and " + " id = " + id);
+             ConnectToDB();
+             myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = "
+                  + fname + " and " + "last_name = " + lname + " and " + " id = " + id);
 
             while (myrs.next()) {
                 String empID = myrs.getString("ID");
@@ -50,14 +74,13 @@ public class Database extends GUI {
             }
 
             PrintDatabase(infolist);
-
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Something went wrong. Can't the information you are looking for in the Database.");
             System.out.println("ERROR: " + ex.getMessage());
         }
-
-
+        finally {
+            EndConnectionDB();
+        }
     }
 
     /**
@@ -71,13 +94,8 @@ public class Database extends GUI {
 
         try {
 
-            Connection mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
-                    "root", "1234");
-
-            Statement mystmt = mycon.createStatement();
-
-
-            ResultSet myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
+            ConnectToDB();
+             myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
                     fname + " and " + "last_name = " + lname + " and " + " id = " + id);
 
             int count = 0;
@@ -101,6 +119,9 @@ public class Database extends GUI {
             JOptionPane.showMessageDialog(this, "Something went wrong. Can't the information you are looking for in the Database.");
             System.out.println("ERROR" + e.getMessage());
         }
+        finally {
+            EndConnectionDB();
+        }
 
     }
 
@@ -112,15 +133,13 @@ public class Database extends GUI {
     public void addQuery(int id, String fname, String lname, String email, int salary, String department){
 
         try{
-            Connection mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo",
-                    "root", "1234");
 
-            Statement mystmt = mycon.createStatement();
+            ConnectToDB();
 
             mystmt.executeUpdate("INSERT INTO employees (id, first_name, last_name, email, salary, department)" +
                     "values(" + id + ", " + fname + ", " + lname + ", " + email + ", " + salary + ", " + department + ")");
 
-            ResultSet myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
+             myrs = mystmt.executeQuery("SELECT * FROM employees where first_name = " +
                     fname + " and " + "last_name = " + lname + " and " + " id = " + id);
 
             int count = 0;
@@ -138,8 +157,9 @@ public class Database extends GUI {
         }catch (Exception ex){
             System.out.println("ERROR: " + ex.getMessage());
         }
-
-
+        finally {
+            EndConnectionDB();
+        }
 
     }
 

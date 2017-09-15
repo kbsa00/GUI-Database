@@ -23,6 +23,7 @@ public class GUI extends JFrame {
     private String fname, lname;
     private int id;
 
+
     /**
      * In the Constructor is where the Main GUI is written and it's
      * respective Button functions.
@@ -102,8 +103,8 @@ public class GUI extends JFrame {
                 lname += lastbox.getText();
                 lname += "'";
 
-                Database b1 = new Database();
-                b1.deleteQuery(id, fname, lname);
+                Database d1 = new Database();
+                d1.deleteQuery(id, fname, lname);
 
             }
         });
