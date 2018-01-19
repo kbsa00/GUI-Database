@@ -10,7 +10,8 @@ the GUI, Instead of actually writing full SQL-Queries.
 
 ## How does it work? 
 As I wrote in the introduction, a lot of the interactions with the Database goes
-through the GUI. The user will see buttons labeled Search, add delete. All the user
+through the GUI. I tried to create a GUI that was easy to use and to interact with. 
+The user will see buttons labeled Search, Add and Delete. All the user
 has to input is the right id, name and lastname of the people they want to find in
 the Database. 
 
